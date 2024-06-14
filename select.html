@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borrowers Table</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Borrowers Table</h1>
+    <table id="borrowersTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>INN</th>
+                <th>Type</th>
+                <th>Address</th>
+                <th>Total Amount</th>
+                <th>Conditions</th>
+                <th>Legal Notes</th>
+                <th>Contracts List</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @tr
+        </tbody>
+    </table>
+    
+    <h2>Add/Edit Borrower</h2>
+    <form id="editForm" method="POST" style="display:block;">
+        <input type="hidden" id="id" name="id">
+        <input type="hidden" id="action" name="action" value="add">
+        <label for="inn">INN:</label><br>
+        <input type="text" id="inn" name="inn"><br>
+        <label for="type">Type:</label><br>
+        <input type="checkbox" id="type" name="type"><br>
+        <label for="address">Address:</label><br>
+        <input type="text" id="address" name="address"><br>
+        <label for="total_amount">Total Amount:</label><br>
+        <input type="text" id="total_amount" name="total_amount"><br>
+        <label for="conditions">Conditions:</label><br>
+        <textarea id="conditions" name="conditions"></textarea><br>
+        <label for="legal_notes">Legal Notes:</label><br>
+        <textarea id="legal_notes" name="legal_notes"></textarea><br>
+        <label for="contracts_list">Contracts List:</label><br>
+        <textarea id="contracts_list" name="contracts_list"></textarea><br>
+        <input type="submit" value="Submit">
+    </form>
+
+    <script>
+        function editRecord(id, inn, type, address, total_amount, conditions, legal_notes, contracts_list) {
+            event.stopPropagation();
+            document.getElementById('id').value = id;
+            document.getElementById('inn').value = inn;
+            document.getElementById('type').checked = type;
+            document.getElementById('address').value = address;
+            document.getElementById('total_amount').value = total_amount;
+            document.getElementById('conditions').value = conditions;
+            document.getElementById('legal_notes').value = legal_notes;
+            document.getElementById('contracts_list').value = contracts_list;
+            document.getElementById('action').value = 'edit';
+            document.getElementById('editForm').style.display = 'block';
+        }
+
+        function deleteRecord(id) {
+            event.stopPropagation();
+            if (confirm('Вы уверены, что хотите удалить эту запись?')) {
+                document.getElementById('id').value = id;
+                document.getElementById('action').value = 'delete';
+                document.getElementById('editForm').submit();
+            }
+        }
+    </script>
+</body>
+</html>
